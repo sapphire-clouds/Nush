@@ -1,4 +1,4 @@
-# nush — New Unix Shell
+# NUSH: New Unix Shell
 
 > A custom UNIX shell written from scratch in **C**, implementing core and advanced shell functionality.
 
