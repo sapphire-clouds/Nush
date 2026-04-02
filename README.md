@@ -2,7 +2,7 @@
 
 > A custom UNIX shell written from scratch in **C**, implementing core and advanced shell functionality.
 
-Built as a systems programming project to deeply understand how shells work under the hood — process creation, inter-process communication, job control, and signal handling.
+Built as a systems programming project to deeply understand how shells work under the hood including process creation, inter-process communication, job control, and signal handling.
 
 ---
 
@@ -75,19 +75,19 @@ bg 1             # resume in background
 ## Architecture
 
 ```
-nush.c  (~500 lines, organized in 11 sections)
+nush.c  (code is organized in 11 sections)
 
-Section 1  — History          circular buffer, strdup
-Section 2  — Job Control      Job struct, jobs/fg/bg built-ins
-Section 3  — Var Expansion    expand_vars(), expand_line()
-Section 4  — Signal Handling  SIGINT, SIGCHLD, SIGTSTP
-Section 5  — Prompt           color, ~-shortening, $? display
-Section 6  — Parsing          tokenize, split_logical, split_pipes
-Section 7  — I/O Redirection  parse_redirects, apply_redirects
-Section 8  — Built-ins        cd, exit, help, history, jobs, fg, bg
-Section 9  — Execution        exec_single, exec_pipeline
-Section 10 — Logical Ops      exec_logical: && / ||
-Section 11 — Main Loop        REPL: read -> expand -> parse -> execute
+Section 1  = History          circular buffer, strdup
+Section 2  = Job Control      Job struct, jobs/fg/bg built-ins
+Section 3  = Var Expansion    expand_vars(), expand_line()
+Section 4  = Signal Handling  SIGINT, SIGCHLD, SIGTSTP
+Section 5  = Prompt           color, ~-shortening, $? display
+Section 6  = Parsing          tokenize, split_logical, split_pipes
+Section 7  = I/O Redirection  parse_redirects, apply_redirects
+Section 8  = Built-ins        cd, exit, help, history, jobs, fg, bg
+Section 9  = Execution        exec_single, exec_pipeline
+Section 10 = Logical Ops      exec_logical: && / ||
+Section 11 = Main Loop        REPL: read -> expand -> parse -> execute
 ```
 
 ### Key System Calls
@@ -109,13 +109,13 @@ Section 11 — Main Loop        REPL: read -> expand -> parse -> execute
 
 ## What This Project Demonstrates
 
-- **Process model** — every program is a child; `fork` + `exec` is how Unix creates processes
-- **File descriptors** — stdin/stdout/stderr are integers; `dup2` rewires them
-- **Pipes as IPC** — `pipe()` creates two connected fds; managing them without leaks is non-trivial
-- **Process groups** — job control requires grouping related processes so signals reach all of them
-- **Terminal ownership** — `tcsetpgrp()` hands the terminal to a foreground job
-- **Signals** — shell ignores SIGINT; children get it; SIGCHLD reaps background jobs
-- **Exit codes** — `&&` / `||` are built entirely on `WEXITSTATUS()`
+- **Process model**: every program is a child; `fork` + `exec` is how Unix creates processes
+- **File descriptors**: stdin/stdout/stderr are integers; `dup2` rewires them
+- **Pipes as IPC**: `pipe()` creates two connected fds; managing them without leaks is non-trivial
+- **Process groups**: job control requires grouping related processes so signals reach all of them
+- **Terminal ownership**: `tcsetpgrp()` hands the terminal to a foreground job
+- **Signals**: shell ignores SIGINT; children get it; SIGCHLD reaps background jobs
+- **Exit codes**: `&&` / `||` are built entirely on `WEXITSTATUS()`
 
 ---
 
